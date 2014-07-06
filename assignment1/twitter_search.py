@@ -1,5 +1,6 @@
 import oauth2 as oauth
 import urllib2 as urllib
+import json
 
 # See assignment1.html instructions or README for how to get these credentials
 
@@ -50,12 +51,28 @@ def twitterreq(url, method, parameters):
 
   return response
 
+def convertFromJson (response):
+    for line in response:
+        object = json.loads (line)
+
+        if 'statuses' in object:
+            statuses = object['statuses']
+            for tweet in statuses:
+                if 'text' in tweet:
+                    print tweet['text']
+
 def fetchsamples():
-  url = "https://stream.twitter.com/1/statuses/sample.json"
-  parameters = []
-  response = twitterreq(url, "GET", parameters)
-  for line in response:
-    print line.strip()
+    # url = "https://stream.twitter.com/1/statuses/sample.json"
+
+    term = 'vacation'
+    url = u"https://api.twitter.com/1.1/search/tweets.json?q=" + term
+    parameters = []
+    response = twitterreq(url, "GET", parameters)
+
+    convertFromJson (response)
+
+    # for line in response:
+    #     print line.strip()
 
 if __name__ == '__main__':
   fetchsamples()
