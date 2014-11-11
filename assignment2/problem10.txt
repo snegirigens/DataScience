@@ -1,0 +1,6 @@
+
+select A.docid as docid1, B.docid as docid2, sum(A.count * B.count) as count from frequency as A, sneg as B where A.term = B.term group by A.docid, B.docid order by count desc;
+
+create view sneg as select 'q' as docid, 'washington' as term, 1 as count union select 'q' as docid, 'taxes' as term, 1 as count union select 'q' as docid, 'treasury' as term, 1 as count;
+
+6

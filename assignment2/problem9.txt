@@ -1,0 +1,5 @@
+select A.docid as docid1, B.docid as docid2, sum(A.count * B.count) as count from frequency as A, frequency as B where A.term = B.term and A.docid = '10080_txt_crude' and B.docid = '17035_txt_earn';
+
+select A.docid as docid1, B.docid as docid2, sum(A.count * B.count) as count from frequency as A, frequency as B where A.term = B.term group by A.docid, B.docid having A.docid = '10080_txt_crude' and B.docid = '17035_txt_earn';
+
+19
