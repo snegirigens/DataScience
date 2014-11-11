@@ -1,3 +1,5 @@
+import sys
+import re
 import oauth2 as oauth
 import urllib2 as urllib
 
@@ -50,12 +52,20 @@ def twitterreq(url, method, parameters):
 
   return response
 
+pattert2search = re.compile (sys.argv[1])
+
 def fetchsamples():
   url = "https://stream.twitter.com/1/statuses/sample.json"
   parameters = []
   response = twitterreq(url, "GET", parameters)
   for line in response:
-    print line.strip()
+      global pattert2search
+      if pattert2search.match (line) != None:
+          print line.strip()
 
 if __name__ == '__main__':
-  fetchsamples()
+    while True:
+        try:
+            fetchsamples()
+        except Exception as err:
+            print err
